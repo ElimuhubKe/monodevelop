@@ -690,7 +690,7 @@ namespace MonoDevelop.VersionControl.Git.Tests
 				var exception = e.FlattenAggregate ().InnerException;
 				// libgit2 < 0.26 will throw NotFoundException (result -3)
 				// libgit2 >= 0.26 will throw generic LibGit2SharpException (result -1), assert the expected message
-				Assert.That (exception.InnerException, Is.InstanceOf<LibGit2Sharp.NotFoundException> ().Or.Message.EqualTo("reference 'refs/heads/master' not found"));
+				Assert.That (exception.InnerException, Is.InstanceOf<LibGit2Sharp.NotFoundException> ().Or.InstanceOf<LibGit2Sharp.NameConflictException> ().Or.Message.EqualTo ("reference 'refs/heads/master' not found"));
 				return;
 			} finally {
 				toCheckout.Dispose ();
